@@ -13,9 +13,9 @@ describe Arduino::OptionParser do
     hash.should == { BOARD_TAG: "foo" }
   end
 
-  it "renames :port to :MONITOR_PORT" do
+  it "renames :port to :ARDUINO_PORT" do
     hash = subject.parse(board: "foo", port: "bar")
-    hash.should == { BOARD_TAG: "foo", MONITOR_PORT: "bar" }
+    hash.should == { BOARD_TAG: "foo", ARDUINO_PORT: "bar" }
   end
 
   it "capitalizes other options" do

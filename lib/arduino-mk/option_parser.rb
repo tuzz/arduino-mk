@@ -5,7 +5,7 @@ module Arduino::OptionParser
     raise_if_no_board(options)
 
     rename_key(options, :board, :BOARD_TAG)
-    rename_key(options, :port, :MONITOR_PORT)
+    rename_key(options, :port, :ARDUINO_PORT)
 
     upcase_keys(options)
 
