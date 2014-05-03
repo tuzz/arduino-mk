@@ -14,11 +14,15 @@ class Arduino
     make(project)
   end
 
+  def reset
+    make(NullProject.path, "reset")
+  end
+
   private
   def make(project, command = "all")
     copy_dir = ProjectCopier.copy(project)
     Makefile::Template.create(copy_dir, @options)
-    result = Makefile::Runner.run(copy_dir, "upload")
+    result = Makefile::Runner.run(copy_dir, command)
     FileUtils.rm_rf(copy_dir)
 
     @error = result.stderr
