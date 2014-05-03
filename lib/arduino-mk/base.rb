@@ -5,7 +5,10 @@ class Arduino
   end
 
   def upload(project_directory)
-    ProjectCopier.copy(project_directory)
+    copy_dir = ProjectCopier.copy(project_directory)
+    makefile = Makefile::Template.create(copy_dir, @options)
+    output = Makefile::Runner.run(makefile, "upload")
+
 
 
 

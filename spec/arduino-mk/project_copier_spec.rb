@@ -17,4 +17,11 @@ describe Arduino::ProjectCopier do
     }.to raise_error(/No such file or directory/)
   end
 
+  it "returns the absolute path to the copy" do
+    copy = subject.copy("spec/fixtures/project")
+    absolute_path = File.join(Dir.pwd, "project_copy")
+
+    copy.should == absolute_path
+  end
+
 end
