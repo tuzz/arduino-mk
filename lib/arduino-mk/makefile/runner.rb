@@ -3,23 +3,16 @@ module Arduino::Makefile
 
     def self.run(makefile, task)
       command = "make -C #{makefile} #{task}"
-      command = stderr_only(command)
-      stderr = `#{command}`
-
-      Result.new(stderr)
-    end
-
-    private
-    def self.stderr_only(command)
-      "(#{command} 1>/dev/null) 2>&1"
+      Result.new(*Open3.capture3(command))
     end
 
     class Result
-      attr_reader :stderr
+      attr_reader :stdout, :stderr
 
-      def initialize(stderr)
-        @success = $?.success?
+      def initialize(stdout, stderr, status)
+        @stdout = stdout
         @stderr = stderr
+        @success = status.success?
       end
 
       def success?
