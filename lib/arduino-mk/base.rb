@@ -1,24 +1,28 @@
 class Arduino
 
+  attr_reader :error
+
   def initialize(options = {})
     @options = OptionParser.parse(options)
   end
 
-  def upload(project_directory)
-    copy_dir = ProjectCopier.copy(project_directory)
+  def upload(project)
+    make(project, "upload")
+  end
 
+  def compiles?(project)
+    make(project)
+  end
+
+  private
+  def make(project, command = "all")
+    copy_dir = ProjectCopier.copy(project)
     Makefile::Template.create(copy_dir, @options)
-    Makefile::Runner.run(copy_dir, "upload")
+    result = Makefile::Runner.run(copy_dir, "upload")
+    FileUtils.rm_rf(copy_dir)
 
-
-
-    # copy project to local directory
-    # set up a template makfile
-    # run make upload and capture standard error
-    # do some basic parsing of error
-    # populate error variable
-    # return true/false based on exit code
-    # remove the copied project directory
+    @error = result.stderr
+    result.success?
   end
 
 end
