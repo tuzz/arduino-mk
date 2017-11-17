@@ -49,12 +49,3 @@ Arduino.makefile
 ```
 
 You can use this as reference.
-
-## Contribution
-
-If you'd like to contribute, please send me a pull request or open an issue.
-
-It'd be great to test this gem on a wide range of Arduinos and platforms.
-
-You should follow me on [twitter](http://twitter.com/cpatuzzo).
-
